@@ -100,6 +100,4 @@ It prefers:
 
 ## License
 
-Add a license before publishing if you want others to reuse or modify this skill.
-MIT is a good default for small personal tooling, but choose whatever matches your
-intent.
+This project is released under the MIT License. See `LICENSE` for details.
