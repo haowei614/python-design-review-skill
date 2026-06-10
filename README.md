@@ -1,7 +1,7 @@
 # Python Design Review Skill
 
-A Codex skill for practical Python code review, focused on design quality and
-engineering hygiene.
+A reusable Python design review rule set for AI coding agents, focused on design
+quality and engineering hygiene.
 
 It reviews Python code through a conservative engineering lens:
 
@@ -13,7 +13,7 @@ It reviews Python code through a conservative engineering lens:
 
 ## When To Use
 
-Use this skill when asking Codex to review Python code for:
+Use this project when asking an AI coding agent to review Python code for:
 
 - Code review before merge or commit
 - Refactoring advice
@@ -36,14 +36,27 @@ Review this PR for KISS, YAGNI, DRY, SOLID, and missing tests.
 Can this module be simplified without losing behavior?
 ```
 
+## Agent Support
+
+This repository is organized so different coding agents can use the same review
+workflow:
+
+- Codex: `SKILL.md`
+- Claude Code: `CLAUDE.md`
+- Cursor: `.cursor/rules/python-design-review.mdc`
+- Other agents: `AGENTS.md`
+
+The detailed checklists and examples live in `references/` so each agent can load
+only the context it needs.
+
 ## What It Produces
 
 The review output is intentionally concise and evidence-based:
 
-- Summary of whether significant issues were found
 - Design violations with principle, file, line, and severity
 - Engineering issues such as missing tests, typing gaps, or unclear tool workflow
 - Suggested verification commands adapted to the project
+- Summary of the overall review result and residual risk
 
 Severity is defined in `SKILL.md`:
 
@@ -55,23 +68,32 @@ Severity is defined in `SKILL.md`:
 
 ```text
 .
+├── AGENTS.md
+├── CLAUDE.md
 ├── SKILL.md
-├── design-checklist.md
-├── quality-checklist.md
-├── examples.md
-└── python-design-review.mdc
+├── LICENSE
+├── README.md
+├── .cursor/
+│   └── rules/
+│       └── python-design-review.mdc
+└── references/
+    ├── design-checklist.md
+    ├── quality-checklist.md
+    └── examples.md
 ```
 
 - `SKILL.md`: main Codex skill instructions and trigger metadata
-- `design-checklist.md`: KISS, YAGNI, DRY, and SOLID review checklist
-- `quality-checklist.md`: lint, format, typing, tests, and environment checklist
-- `examples.md`: common review patterns with before/after examples
-- `python-design-review.mdc`: optional Cursor-compatible mirror of the core rules
+- `CLAUDE.md`: Claude Code project instructions
+- `AGENTS.md`: generic agent instructions
+- `.cursor/rules/python-design-review.mdc`: Cursor-compatible rule file
+- `references/design-checklist.md`: KISS, YAGNI, DRY, and SOLID review checklist
+- `references/quality-checklist.md`: lint, format, typing, tests, and environment checklist
+- `references/examples.md`: common review patterns with before/after examples
 
 ## Installation
 
-Clone or copy this repository into your Codex skills directory as a skill folder.
-The folder name should match the skill name:
+For Codex, clone or copy this repository into your Codex skills directory as a
+skill folder. The folder name should match the skill name:
 
 ```bash
 python-design-review/
@@ -84,6 +106,12 @@ For example:
 ```
 
 The skill is discovered from the `name` and `description` fields in `SKILL.md`.
+
+For Claude Code, keep `CLAUDE.md` at the repository root or copy its contents
+into the target project's Claude instructions.
+
+For Cursor, copy `.cursor/rules/python-design-review.mdc` into the target
+project's `.cursor/rules/` directory.
 
 ## Design Philosophy
 

@@ -19,9 +19,8 @@ description: >
 
 ## Core principles
 
-Use these definitions as the source of truth for the review. The
-`python-design-review.mdc` file is a Cursor-compatible mirror, not a required
-runtime dependency for this skill.
+Use these definitions as the source of truth for the Codex skill. Other agent
+entrypoints in this repository should follow the same review workflow.
 
 ### KISS
 - Prefer the simplest solution that solves the current problem.
@@ -70,17 +69,14 @@ When severity is uncertain, choose the lower severity and explain the uncertaint
 Do not invent high-severity findings from principle preferences alone.
 
 ## How to run
-1. Load `design-checklist.md` and apply each section.
-2. Load `quality-checklist.md` and check engineering hygiene.
-3. Reference `examples.md` for common violation patterns and before/after code.
+1. Load `references/design-checklist.md` and apply each section.
+2. Load `references/quality-checklist.md` and check engineering hygiene.
+3. Reference `references/examples.md` for common violation patterns and before/after code.
 4. Produce output in the format below.
 
 ## Output format
 
 ```
-### Summary
-2–3 lines. If no significant violations, say so explicitly and stop here.
-
 ### Design violations
 <principle> | <file>:<line> | <severity: high / medium / low>
 Brief explanation + smallest reasonable fix.
@@ -91,6 +87,9 @@ List lint / format / type / test / env gaps found.
 
 ### Suggested verification commands
 Commands appropriate for this project's toolchain.
+
+### Summary
+2–3 lines covering the overall review result and residual risk.
 ```
 
 **If no significant violations found**: state that explicitly, skip empty
