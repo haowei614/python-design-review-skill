@@ -1,0 +1,80 @@
+---
+description: Python code design and quality rules
+globs:
+  - "**/*.py"
+alwaysApply: true
+---
+
+# Python Design Review Rules
+
+When generating, editing, or reviewing Python code, follow these rules.
+
+## Priority
+
+1. KISS
+2. YAGNI
+3. DRY
+4. SOLID
+5. Tooling and project consistency
+
+## Core principles
+
+### KISS
+- Prefer the simplest solution that solves the current problem.
+- Avoid unnecessary abstraction or cleverness.
+- Keep functions small; prefer early return over deep nesting.
+
+### YAGNI
+- Do not add functionality for hypothetical future needs.
+- Remove dead code, unused arguments, speculative abstractions.
+
+### DRY
+- Avoid duplicating business rules.
+- Follow the rule of three before extracting abstractions.
+- Do not merge superficially similar code that hurts clarity.
+
+### SOLID
+- **SRP**: one clear reason to change per module/class.
+- **OCP**: extend rather than repeatedly modify stable code.
+- **LSP**: subclasses must preserve parent contracts.
+- **ISP**: avoid forcing implementers to handle methods they don't need.
+- **DIP**: depend on abstractions or injected collaborators.
+
+## Python-specific
+- Use type hints for public functions.
+- Prefer composition over inheritance.
+- Use dataclasses for plain data containers.
+- Avoid broad `except:` clauses.
+- Separate I/O, persistence, and business logic.
+
+## Quality checks (before "done")
+
+### Design checks
+- Passes KISS / YAGNI / DRY / SOLID review (see above)
+
+### Engineering checks
+- Lint passes (`ruff check`)
+- Format passes (`ruff format --check`)
+- Type checks pass (if configured)
+- Tests pass
+- Environment is reproducible
+
+## Recommended commands
+
+Prefer `uv` if the project uses it:
+```
+uv run ruff check .
+uv run ruff format --check .
+uv run mypy .
+uv run pytest
+```
+
+If the project uses poetry / pip-tools / hatch, follow the project standard.
+`uv` is recommended, not mandatory.
+
+## Review output style
+- Identify violated principles
+- Explain briefly why
+- Suggest the smallest reasonable fix first
+- Avoid over-engineering refactor suggestions
+- If no significant violations found, state that explicitly
